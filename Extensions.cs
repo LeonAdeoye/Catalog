@@ -6,7 +6,7 @@ namespace Catalog
     public static class Extensions
     {
         // Create a LINQ extension method to simplify the conversion to a DTO object.
-        public static ItemDto asDto(this Item item)
+        public static ItemDto AsDto(this Item item)
         {
             return new ItemDto
             {
