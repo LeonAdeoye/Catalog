@@ -20,7 +20,7 @@ namespace Catalog.Repositories
 
         public async Task<Item> GetItemAsync(Guid id)
         {
-            var result =items.Where(item => item.Id == id).SingleOrDefault();
+            var result = items.Where(item => item.Id == id).SingleOrDefault();
             return await Task.FromResult(result);
         }
 
