@@ -5,7 +5,9 @@ To check health use https://localhost:7170/health/live
 To check health use https://localhost:7170/health/ready
 
 
-For Postman use https://localhost:7170/items
+For Postman or Chrome use 
+https://localhost:7170/items
+http://localhost:5000/items/86d3d360-cead-471d-92e6-19c45e492980
 
 
 Create DockerFile  and remember that Docker is case-sensitive.
