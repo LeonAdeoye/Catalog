@@ -1,3 +1,4 @@
+using Catalog.Entities;
 using Catalog.Repositories;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using MongoDB.Bson;
@@ -5,7 +6,7 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 
-string CONNECTION_URI = "mongodb://wch_user:wch_user@leonadeoyemongodbcluster-shard-00-01-gni1u.azure.mongodb.net:27017,leonadeoyemongodbcluster-shard-00-00-gni1u.azure.mongodb.net:27017,leonadeoyemongodbcluster-shard-00-02-gni1u.azure.mongodb.net:27017/admin?serverSelectionTimeoutMS=20000&readPreference=primary&ssl=true";
+string CONNECTION_URI = "mongodb://workbench_user:workbench_user@leonadeoyemongodbcluster-shard-00-01-gni1u.azure.mongodb.net:27017,leonadeoyemongodbcluster-shard-00-00-gni1u.azure.mongodb.net:27017,leonadeoyemongodbcluster-shard-00-02-gni1u.azure.mongodb.net:27017/admin?serverSelectionTimeoutMS=20000&readPreference=primary&ssl=true";
 
 var builder = WebApplication.CreateBuilder(args);
 // Need to esnsure serialization in Mongo DB is string type for both GUID and DataTimeOffset.
@@ -25,6 +26,8 @@ builder.Services.AddHealthChecks()
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<ItemQuery>();
+builder.Services.AddGraphQL(p => SchemaBuilder.New().AddServices(p).AddType<ItemType>().AddQueryType<ItemQuery>().Create());
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -35,9 +38,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 // Also needed for healthchecks.

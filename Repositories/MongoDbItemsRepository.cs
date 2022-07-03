@@ -21,6 +21,11 @@ namespace Catalog.Repositories
             return await itemsCollection.Find(new BsonDocument()).ToListAsync();
         }
 
+        public IEnumerable<Item> GetItems()
+        {
+            return itemsCollection.Find(new BsonDocument()).ToList();
+        }
+
         public async Task<Item> GetItemAsync(Guid id)
         {
             var filter = filterBuilder.Eq(item => item.Id, id);

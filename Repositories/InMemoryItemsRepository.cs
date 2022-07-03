@@ -18,6 +18,11 @@ namespace Catalog.Repositories
             return await Task.FromResult(items);
         }
 
+        public IEnumerable<Item> GetItems()
+        {
+            return items;
+        }
+
         public async Task<Item> GetItemAsync(Guid id)
         {
             var result = items.Where(item => item.Id == id).SingleOrDefault();

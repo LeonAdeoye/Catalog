@@ -6,6 +6,7 @@ namespace Catalog.Repositories
     {
         Task<Item> GetItemAsync(Guid id);
         Task<IEnumerable<Item>> GetItemsAsync();
+        IEnumerable<Item> GetItems();
         Task CreateItemAsync(Item item);
         Task UpdateItemAsync(Item item);
         Task DeleteItemAsync(Guid id);
