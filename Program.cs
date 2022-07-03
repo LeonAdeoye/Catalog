@@ -1,4 +1,4 @@
-using Catalog.Entities;
+using Catalog.GraphQL;
 using Catalog.Repositories;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using MongoDB.Bson;
@@ -26,8 +26,8 @@ builder.Services.AddHealthChecks()
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<ItemQuery>();
-builder.Services.AddGraphQL(p => SchemaBuilder.New().AddServices(p).AddType<ItemType>().AddQueryType<ItemQuery>().Create());
+builder.Services.AddGraphQLServer().AddQueryType<ItemQuery>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -38,12 +38,17 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseAuthorization();
 app.MapControllers();
+app.UseRouting();
+app.UseGraphQLVoyager();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapGraphQL();
+    endpoints.MapSwagger();
+});
 
 // Also needed for healthchecks.
 app.MapHealthChecks("/health/ready", new HealthCheckOptions { Predicate = (check) => check.Tags.Contains("ready")}); ;
 app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = (_) => false }); ;
-
-
 app.Run();

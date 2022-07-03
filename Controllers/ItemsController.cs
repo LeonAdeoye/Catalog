@@ -39,7 +39,6 @@ namespace Catalog.controllers
 
         // POST /items
         [HttpPost]
-
         public async Task<ActionResult<ItemDto>> CreateItemAsync(CreateItemDto createItemDto)
         {
             Item item = new()
@@ -53,7 +52,8 @@ namespace Catalog.controllers
             await repository.CreateItemAsync(item);
 
             // As a only convention (not mandatory), we need to return the item and also a header.
-            return CreatedAtAction(nameof(GetItemAsync), new { id = item.Id }, item.AsDto());
+            // return CreatedAtAction(nameof(GetItemAsync), new { id = item.Id }, item.AsDto()); THIS CREATES AN ERROR NOT SURE WHY?
+            return item.AsDto();
         }
 
         // PUT /items/{id}

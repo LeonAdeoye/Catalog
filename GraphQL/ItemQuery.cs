@@ -1,6 +1,7 @@
-﻿using Catalog.Repositories;
+﻿using Catalog.Entities;
+using Catalog.Repositories;
 
-namespace Catalog.Entities
+namespace Catalog.GraphQL
 {
     public class ItemQuery
     {
