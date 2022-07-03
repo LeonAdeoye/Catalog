@@ -5,12 +5,8 @@ namespace Catalog.GraphQL
 {
     public class ItemQuery
     {
-        private readonly IItemsRepository itemsRepository;
-        public ItemQuery(IItemsRepository itemsRepository) 
-        {
-            this.itemsRepository = itemsRepository;
-        }
+        public List<string> Names([Service] IItemsRepository repository) => repository.GetItems().Select(x => x.Name).ToList();
 
-        public List<Item> Items => itemsRepository.GetItems().ToList();
+        public Task<IEnumerable<Item>> Items([Service] IItemsRepository repository) => repository.GetItemsAsync();
     }
 }
