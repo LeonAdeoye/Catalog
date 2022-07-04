@@ -27,8 +27,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddGraphQLServer()
-    .AddQueryType<ItemQuery>().AddType<ItemType>()
-    .AddFiltering().AddSorting();
+    .AddQueryType<ItemQuery>()
+    .AddType<ItemType>()
+    .AddMutationType<ItemMutation>()
+    .AddFiltering()
+    .AddSorting();
 
 var app = builder.Build();
 
