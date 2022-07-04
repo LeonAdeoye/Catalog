@@ -8,7 +8,7 @@ namespace Catalog.GraphQL
     {
         protected override void Configure(IObjectTypeDescriptor<Item> descriptor)
         {
-            descriptor.Description("Represents an item that exists in the Mincraft world.");
+            descriptor.Description("Represents an item that exists in the Minecraft world.");
 
             descriptor.Field(p => p.Id).Ignore();
 
@@ -17,7 +17,10 @@ namespace Catalog.GraphQL
 
         private class ItemResolvers
         {
-            public IEnumerable<Item> GetPrices(Item item, [Service] IItemsRepository itemRepository) => itemRepository.GetItems().Where(p => p.Id == item.Id);
+            public IEnumerable<Item> GetPrices(Item item, [Service] IItemsRepository itemRepository)
+            {
+                return itemRepository.GetItems().Where(p => p.Id == item.Id);
+            }                
         }
     }
 }

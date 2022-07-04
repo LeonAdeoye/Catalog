@@ -11,12 +11,12 @@ namespace Catalog.Entities
         // [GraphQLDescription("The unqiue Id of the item that exists in the Mincraft world.")] 
         public Guid Id { get; init; }
         [Required]
-        [GraphQLDescription("The name of item that exists in the Mincraft world.")]
+        [GraphQLDescription("The name of item that exists in the Minecraft world.")]
         public string Name { get; init; }
         [Required]
-        [GraphQLDescription("The price of item that exists in the Mincraft world.")]
+        [GraphQLDescription("The price of item that exists in the Minecraft world.")]
         public decimal Price { get; init; }
-        [GraphQLDescription("The creation date of the item that exists in the Mincraft world.")]
+        [GraphQLDescription("The creation date of the item that exists in the Minecraft world.")]
         public DateTimeOffset CreatedDate { get; init; }
     }
 }
