@@ -26,7 +26,7 @@ builder.Services.AddHealthChecks()
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddGraphQLServer().AddQueryType<ItemQuery>();
+builder.Services.AddGraphQLServer().AddQueryType<ItemQuery>().AddType <ItemType>();
 
 var app = builder.Build();
 

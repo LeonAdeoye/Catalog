@@ -2,11 +2,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Catalog.Entities
 {
-    [GraphQLDescription("Represents an item that exists in the Mincraft world.")]
+    // Used Querytype instead of below annotation.
+    // [GraphQLDescription("Represents an item that exists in the Mincraft world.")]
     public record Item
     {
         [Key]
-        [GraphQLDescription("The unqiue Id of the item that exists in the Mincraft world.")]
+        // Used We are not going to expose the Id field in GraphQL
+        // [GraphQLDescription("The unqiue Id of the item that exists in the Mincraft world.")] 
         public Guid Id { get; init; }
         [Required]
         [GraphQLDescription("The name of item that exists in the Mincraft world.")]
