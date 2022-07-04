@@ -9,6 +9,13 @@ namespace Catalog.GraphQL
 
     public class ItemMutation
     {
+        /*
+            mutation
+            {
+                addItem(itemPayload: { name: "Amazing Mansion" price: 4600})
+                { name }
+            }
+         */
         public async Task<ItemPayload> AddItemAsync(ItemPayload itemPayload, [Service] IItemsRepository itemsRepository)
         {
             Item newItem = new() 
