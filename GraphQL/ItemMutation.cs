@@ -1,5 +1,6 @@
 ﻿using Catalog.Entities;
 using Catalog.Repositories;
+using HotChocolate.Subscriptions;
 
 namespace Catalog.GraphQL
 {
@@ -16,7 +17,8 @@ namespace Catalog.GraphQL
                 { name }
             }
          */
-        public async Task<ItemPayload> AddItemAsync(ItemPayload itemPayload, [Service] IItemsRepository itemsRepository)
+        public async Task<ItemPayload> AddItemAsync(ItemPayload itemPayload, [Service] IItemsRepository itemsRepository, 
+            [Service] ITopicEventSender eventSender, CancellationToken cancellationToken)
         {
             Item newItem = new() 
             {
@@ -28,7 +30,14 @@ namespace Catalog.GraphQL
 
             await itemsRepository.CreateItemAsync(newItem);
 
+            await eventSender.SendAsync(nameof(ItemSubscription.OnItemAdded), newItem, cancellationToken);
+
             return itemPayload;
+        }
+
+        public async Task DeleteItemAsync(Guid id, [Service] IItemsRepository itemsRepository)
+        {
+            await itemsRepository.DeleteItemAsync(id);
         }
 
     }

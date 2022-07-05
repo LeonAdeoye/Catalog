@@ -30,6 +30,8 @@ builder.Services.AddGraphQLServer()
     .AddQueryType<ItemQuery>()
     .AddType<ItemType>()
     .AddMutationType<ItemMutation>()
+    .AddSubscriptionType<ItemSubscription>()
+    .AddInMemorySubscriptions()
     .AddFiltering()
     .AddSorting();
 
@@ -42,6 +44,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseWebSockets();
 app.UseHttpsRedirection();
 app.MapControllers();
 app.UseRouting();
